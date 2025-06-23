@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Page</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .payment-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #3399cc;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2b82ad;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="payment-container">
+        <h2>Complete Your Payment</h2>
+        <p>Click the button below to pay ₹<span id="amount-display"></span> (Test Payment)</p>
+        <button id="rzp-button">Pay Now</button>
+    </div>
+
+    <script>
+        // Get cart amount from localStorage
+        const cartAmount = parseInt(localStorage.getItem("cartTotal")) || 0;
+        document.getElementById("amount-display").textContent = cartAmount;
+
+        document.getElementById('rzp-button').addEventListener('click', () => {
+            // Step 1: Create order on server
+            fetch('http://localhost:3000/create-order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ amount: cartAmount })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Order Created:", data); // For debugging
+
+                    const options = {
+                        key: "rzp_test_8nvRyVJ6WfsCi1",
+                        amount: data.amount,
+                        currency: "INR",
+                        name: "Rudrakshi Sawant",
+                        description: "Test Transaction",
+                        order_id: data.id,
+                        handler: function (response) {
+                            // Step 2: Verify payment
+                            fetch('http://localhost:3000/verify-payment', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    payment_id: response.razorpay_payment_id,
+                                    order_id: data.id,
+                                    signature: response.razorpay_signature,
+                                    amount: data.amount
+                                })
+                            })
+                                .then(res => res.json())
+                                .then(result => {
+                                    console.log("Payment Verification Result:", result);
+                                    alert(result.status);
+
+                                    // Check if invoiceUrl exists and redirect to success page
+                                    if (result.invoiceUrl) {
+                                        const encodedUrl = encodeURIComponent(result.invoiceUrl);
+                                        console.log("Redirecting to:", `success.html?invoiceUrl=${encodedUrl}`);
+                                        window.location.href = `success.html?invoiceUrl=${encodedUrl}`;
+                                    } else {
+                                        alert("Payment succeeded, but invoice could not be generated.");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Error verifying payment:", error);
+                                    alert("Payment was successful, but verification failed.");
+                                });
+                        },
+                        prefill: {
+                            name: "Rudrakshi Sawant",
+                            email: "rudrakshi@example.com",
+                            contact: "9999999999"
+                        }
+                    };
+
+                    const rzp1 = new Razorpay(options);
+                    rzp1.open();
+                })
+                .catch(error => {
+                    console.error('Error creating order:', error);
+                    alert("Order creation failed. Please try again.");
+                });
+        });
+    </script>
+</body>
+
+</html>

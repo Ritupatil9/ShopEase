@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health & Personal Care</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <nav class="navbar">
+            <!-- Logo and Brand -->
+            <a class="navbar-brand" href="#">ShopEase</a>
+            <!-- Search Bar -->
+            <div class="nav-search">
+                <input type="text" class="search-bar" placeholder="Search products..." />
+                <button class="search-button">Search</button>
+            </div>
+            <!-- Icons and Cart Link -->
+            <div class="nav-actions">
+                <a href="cart.html" class="icon cart-icon" style="position: relative;">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span id="cart-badge" class="cart-badge">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Sidebar and Main Content -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Delivery Day Section -->
+            <div class="filter-section">
+                <h4>Delivery Day</h4>
+                <ul>
+                    <li><input type="checkbox"> Get It Today</li>
+                    <li><input type="checkbox"> Get It by Tomorrow</li>
+                    <li><input type="checkbox"> Get It in 2 Days</li>
+                </ul>
+            </div>
+
+            <!-- Category Section -->
+            <div class="filter-section">
+                <h4>Category</h4>
+                <ul>
+                    <li>Health & Wellness</li>
+                    <li>Personal Care</li>
+                    <li>Medical Supplies</li>
+                    <li>Skincare</li>
+                    <li>Hair Care</li>
+                    <li>Oral Care</li>
+                </ul>
+            </div>
+
+            <!-- Brand Section -->
+            <div class="filter-section">
+                <h4>Brand</h4>
+                <ul>
+                    <li><input type="checkbox" checked> Himalaya</li>
+                    <li><input type="checkbox" checked> Nivea</li>
+                    <li><input type="checkbox"> Dove</li>
+                    <li><input type="checkbox"> L'Oreal</li>
+                    <li><input type="checkbox"> Colgate</li>
+                </ul>
+            </div>
+
+            <!-- Price Section -->
+            <div class="filter-section">
+                <h4>Price</h4>
+                <label for="priceRange">Select Price Range:</label>
+                <input type="range" id="priceRange" name="priceRange" min="39" max="1000" step="10" value="39" oninput="updatePriceDisplay(this.value)">
+                <span id="priceDisplay">₹39</span> – ₹1,000+
+                <button onclick="filterProducts()">Filter</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <section class="content">
+            <h2>Choose Your Health...</h2>
+            <div class="grid">
+                <!-- Product Cards -->
+                <div class="product-image" data-price="299">
+                    <div class="image-placeholder">
+                        <img src="images/h1.png" width="175" onclick="showPopup('Herbal Face Wash', '₹299', 'images/h1.png')">
+                    </div>
+                    <h6>Herbal Face Wash</h6>
+                    <p>₹299</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-image" data-price="499">
+                    <div class="image-placeholder">
+                        <img src="images/h2.png" width="175" onclick="showPopup('Dot & key Sunscreen', '₹499', 'images/h2.png')">
+                    </div>
+                    <h6>Dot & key Sunscreen</h6>
+                    <p>₹499</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-image" data-price="649">
+                    <div class="image-placeholder"><img src="Images/h3.png" width="120" onclick="showPopup('Cetaphil Moisturizer', '₹649', 'Images/h3.png')"></div>
+                    <h6>Cetaphil Moisturizer</h6>
+                    <p>₹649</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-image" data-price="99">
+                    <div class="image-placeholder"><img src="Images/h4.png" width="165" onclick="showPopup('Disposable Gloves', '₹99', 'Images/h4.png')"></div>
+                    <h6>Disposable Gloves</h6>
+                    <p>₹99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-image" data-price="348">
+                    <div class="image-placeholder"><img src="Images/h5.png" width="150" onclick="showPopup('Knee Support', '₹348', 'Images/h5.png')"></div>
+                    <h6>Knee Support</h6>
+                    <p>₹348</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-image" data-price="499">
+                    <div class="image-placeholder"><img src="Images/h6.png" width="150" onclick="showPopup('Shower Gel', '₹499', 'Images/h6.png')"></div>
+                    <h6>Shower Gel</h6>
+                    <p>₹499</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-image" data-price="899">
+                    <div class="image-placeholder"><img src="Images/h7.png" width="120" onclick="showPopup('Mamaearth Shampoo with Conditioner', '₹899', 'Images/h7.png')"></div>
+                    <h6>Mamaearth </h6>
+                    <p>₹899</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-image" data-price="125">
+                    <div class="image-placeholder"><img src="Images/h8.png" width="150" onclick="showPopup('KN95 Mask', '₹125', 'Images/h8.png')"></div>
+                    <h6>KN95 Mask</h6>
+                    <p>₹125</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-image" data-price="489">
+                    <div class="image-placeholder"><img src="Images/h9.png" width="180" onclick="showPopup('Hailr Oi', '₹489', 'Images/h9.png')"></div>
+                    <h6>Hailr Oi</h6>
+                    <p>₹489</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+                <div class="product-image" data-price="39">
+                    <div class="image-placeholder"><img src="Images/h10.png" width="150" onclick="showPopup('Moisturizing Lotion', '₹39', 'Images/h10.png')"></div>
+                    <h6>Brush</h6>
+                    <p>₹39</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Popup Section -->
+    <div id="popup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <span class="close-button" onclick="hidePopup()">×</span>
+            <img id="popup-image" src="1.png" alt="Product Image" />
+            <h3 id="popup-title"></h3>
+            <p><strong>Price:</strong> <span id="popup-price"></span></p>
+            <button class="buy-now" onclick="buyNow()">Buy Now</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function showPopup(title, price, imageSrc) {
+            const popup = document.getElementById('popup');
+            document.getElementById('popup-title').innerText = title;
+            document.getElementById('popup-price').innerText = price;
+            document.getElementById('popup-image').src = imageSrc;
+            popup.style.display = 'block';
+        }
+
+        function hidePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        function updatePriceDisplay(value) {
+            document.getElementById("priceDisplay").innerText = `₹${value}`;
+        }
+
+        function filterProducts() {
+            const selectedPrice = parseInt(document.getElementById("priceRange").value, 10);
+            const products = document.querySelectorAll(".grid .product-image");
+
+            products.forEach(product => {
+                const productPrice = parseInt(product.getAttribute("data-price"), 10);
+                product.style.display = productPrice >= selectedPrice ? "block" : "none";
+            });
+
+            console.log(`Products under ₹${selectedPrice} are now displayed.`);
+        }
+
+        function buyNow() {
+            alert("Proceeding to checkout!");
+        }
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        function updateCartBadge() {
+            const badge = document.getElementById("cart-badge");
+            if (cart.length > 0) {
+                badge.style.display = "inline-block";
+                badge.textContent = cart.length;
+            } else {
+                badge.style.display = "none";
+            }
+        }
+
+        function addToCart(productName, productPrice) {
+            cart.push({ name: productName, price: productPrice });
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCartBadge();
+            alert(`${productName} added to cart!`);
+        }
+
+        document.querySelectorAll(".add-to-cart").forEach(button => {
+            button.addEventListener("click", function() {
+                const productCard = this.closest(".product-image");
+                const name = productCard.querySelector("h6").innerText;
+                const price = productCard.querySelector("p").innerText;
+                addToCart(name, price);
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", updateCartBadge);
+    </script>
+
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #4b6cb7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #4b6cb7 !important;
+            margin-left: 20px;
+            text-decoration: none;
+        }
+
+        /* Search Bar */
+        .nav-search {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-search input {
+            width: 250px;
+            border-radius: 6px 0 0 6px;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .search-button {
+            background-color: #004d7a;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .search-button:hover {
+            background-color: #003357;
+        }
+
+        /* Navigation Icons */
+        .nav-actions, .icon-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .icon {
+            color: #4b6cb7;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .icon i {
+            font-size: 20px;
+            margin-right: 5px;
+        }
+
+        /* Cart Badge */
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 6px;
+            border-radius: 50%;
+            display: none;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 20%;
+            background: linear-gradient(135deg, #004d7a, #2a4d7f);
+            padding: 20px;
+            border-right: 1px solid #ddd;
+            color: #ffffff;
+            overflow-y: auto;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Sidebar Scrollbar */
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: #1e3c72;
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #6a93cb;
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: #85a9db;
+        }
+
+        /* Filters */
+        .filter-section {
+            margin-bottom: 30px;
+        }
+
+        .filter-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ffffff50;
+            padding-bottom: 6px;
+        }
+
+        .filter-section ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .filter-section li {
+            margin: 8px 0;
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-section input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        #priceRange {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        #priceDisplay {
+            font-weight: bold;
+            color: #ffcc00;
+        }
+
+        .filter-section button {
+            margin-top: 10px;
+            background-color: #ffcc00;
+            color: #004d7a;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .filter-section button:hover {
+            background-color: #ffd633;
+        }
+
+        /* Content Area */
+        .content {
+            width: 80%;
+            padding: 20px;
+        }
+
+        /* Product Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        /* Product Card */
+        .product-image {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 77, 122, 0.2);
+        }
+
+        .image-placeholder {
+            background-color: #ffffff;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .product-image h6 {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .product-image p {
+            color: #004d7a;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .add-to-cart {
+            background-color: #004d7a;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #003357;
+        }
+
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            background-color: white;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .popup-content {
+            text-align: center;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .popup img {
+            width: 150px;
+            margin-bottom: 15px;
+        }
+
+        .popup h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #007BFF;
+        }
+
+        .popup p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .buy-now {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+                padding: 10px;
+            }
+
+            .nav-search {
+                order: 3;
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            .icon-container {
+                margin-left: auto;
+            }
+        }
+    </style>
+</body>
+</html>
